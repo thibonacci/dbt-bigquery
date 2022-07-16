@@ -1,0 +1,64 @@
+version: 2
+
+sources:
+  - name: gc_paysvc_live
+    tables:
+      - name: mandates
+        columns:
+          - name: id
+            tests:
+            - unique
+            - not_null
+          - name: created_at
+            tests:
+            - not_null
+          - name: scheme
+            tests:
+            - not_null
+          - name: organisation_id
+            tests:
+            - not_null
+            - relationships:
+                to: source('gc_paysvc_live', 'organisations')
+                field: id
+
+      - name: organisations
+        columns:
+          - name: id
+            tests:
+            - unique
+            - not_null
+          - name: created_at
+            tests:
+            - not_null
+          - name: parent_vertical
+            tests:
+            - not_null
+
+      - name: payments
+        columns:
+          - name: id
+            tests:
+            - unique
+            - not_null
+          - name: amount
+            tests:
+            - not_null
+          - name: currency
+            tests:
+            - not_null
+          - name: created_at
+            tests:
+            - not_null
+          - name: source
+            tests:
+            - not_null
+          - name: charge_date
+            tests:
+            - not_null 
+          - name: mandate_id
+            tests:
+            - not_null
+            - relationships:
+                to: source('gc_paysvc_live', 'mandates')
+                field: id

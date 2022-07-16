@@ -1,0 +1,9 @@
+gocardless:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      project: gc-prd-ext-data-test-prod-906c
+      dataset: gc_transformed # You can also use "schema" here
+      threads: 1
